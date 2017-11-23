@@ -1,0 +1,300 @@
+html {
+	font-size: 16px;
+	font-family: 'lilly';
+}
+
+
+body {
+	background-image: url("../images/fond.png");
+	background-repeat: repeat;
+	font-family: 'lilly'
+	font-size: 1rem;
+
+}
+
+
+h1 {
+	font-size: 3rem;
+}
+h2 {
+	font-size: 2rem;
+}
+
+h3{
+	font-size: 1.2rem;
+	line-height: 3rem;
+}
+
+div{
+	font-size: 1rem;
+}
+.clear{
+
+	clear: both;
+}
+
+.boite1{
+
+	background-color: gray;
+
+	height: 30rem;
+}
+
+.boite2{
+	background-color: gray;
+	height: 30rem;
+}
+
+.gros_titre1{
+background-image: url('../images/chemin_r.JPG');
+background-size: cover;
+margin-top: 2rem;
+
+}
+
+ /* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.carousel-item{
+
+	text-align: center;
+}
+
+
+.bg-dark{
+background-color: #343a4080 !important;
+}
+
+
+/*
+-------------------------------------------------------
+
+gestion des polices spécifiques au site
+
+-------------------------------------------------------*/
+
+@font-face {
+	font-family: 'lilly';
+	src: url('../fonts/lilly__.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+
+@font-face {
+	font-family: 'uncialantiqua';
+	src: url('../fonts/UncialAntiqua-Regular.otf');
+
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'linlibertine';
+	src: url('../fonts/linlibertine_i.ttf');
+
+	font-weight: normal;
+	font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'lillyregular';
+    src: url('../fonts/lilly__-webfont.woff2') format('woff2'),
+         url('../fonts/lilly__-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+	font-family: FontAwesome;
+	src: url('./fonts/fontawesome-webfont.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+/* Classe principale de la barre de navigation */
+.navbar-default {
+ /* Couleur de fond de la barre de navigation */
+ background-color: #F8F8F8;
+ border-color: #E7E7E7;
+}
+/* Couleur des titres affichés dans la barre */
+.navbar-default .navbar-brand {
+ color: #777;
+}
+/* Couleur utilisée lors du passage de la souris sur un titre de la barre */
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+ color: #5E5E5E;
+}
+/* Couleur utilisée pour les liens */
+.navbar-default .navbar-nav > li > a {
+ color: #777;
+}
+/* Couleur utilisée pour les liens lorsque la souris passe dessus */
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+ color: #333;
+}
+/* Couleur utilisée pour le lien actif (celui qui est affiché sur la page) */
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+ color: #555;
+ background-color: #E7E7E7;
+}
+/* Couleur utilisée pour un menu dépliant lorsqu'il est ouvert */
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+ color: #555;
+ background-color: #D5D5D5;
+}
+/* Caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+ border-top-color: #777;
+ border-bottom-color: #777;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+ border-top-color: #333;
+ border-bottom-color: #333;
+}
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+ border-top-color: #555;
+ border-bottom-color: #555;
+}
+/* Version mobile, le menu devient une icône qui déroule une liste avec le menu en vertical */
+.navbar-default .navbar-toggle {
+ border-color: #DDD;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+ background-color: #DDD;
+}
+.navbar-default .navbar-toggle .icon-bar {
+ background-color: #CCC;
+}
+@media (max-width: 767px) {
+ .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+ color: #777;
+ }
+ .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+ .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+ color: #333;
+ }
+}
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
