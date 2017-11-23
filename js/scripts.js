@@ -1,5 +1,3 @@
-
-
 /*
 Récupération de la liste des images dans le répertoire
 */
@@ -398,7 +396,3 @@ function menp_table(thetable){
  });
 	
 }
-
-
-
-

@@ -20,7 +20,7 @@
 	<link href="css/layout.css" rel="stylesheet" type="text/css" />
 	
 
-	<title>Liste des courses</title>
+	<title>Ajouter un produit</title>
 
 </head>
 <?php
@@ -91,6 +91,8 @@ function afficher_toutes_les_lignes(){
 	}
 }
 
+if (empty($_POST)){	
+
 ?>
 <body>
 
@@ -100,94 +102,56 @@ function afficher_toutes_les_lignes(){
 	</header>
 		
 	<main class="container">
-		<div class="row" style="margin-top: 2rem;">
-			<div class="col-8" >
-<?php
+		<div class="row" style="margin-top: 2rem;margin-bottom: 2rem;">
+  			<div class="col-sm-10">
+				<form action="ajout.php" method="POST">
+					<legend>Faites vos courses<br><br></legend>	
+					<fieldset class="form-group">
+						<p><label for="nom" class="col-sm-2">Nom :</label>
+						<input class="form-control col-sm-10" type="text" name="nom" id="nom" title="Nom du produit" required minlength=3 />
+						</p>
+						<p><label for="quantite" class="col-sm-2">Quantité :</label>
+						<input class="form-control col-sm-10" type="text" name="quantite" id="quantite"/>
+						</p>
+						<p><label for="unite" class="col-sm-2">Unité :</label>
+						
+						<select id="leunite" name="leunite" class="form-control col-sm-6">
+							<option value='unité'>Unité
+							<option value='gramme'>Gramme
+							<option value='kilogramme'>Kilogramme
+							<option value='centilitre'>Centilitre
+							<option value='litre'>Litre
+						</select>
 
-$requete = "SELECT * FROM produit";
+						</p>
+			</div>		
+					</fieldset>
+					<div class="col-sm-6">
+						<input type="reset" name="reinit" value="Recommencer">
+					</div>
+					<div class="col-sm-6">
+						<input type="submit" name="envoie" value="Enregistrer">
+					</div>
+				</form>
+ <?php
+} // fin if empty post
 
-if ($req_fruits = $bdd->query($requete)) {
-	$les_produits = $req_fruits->fetchAll();
-	//var_dump($les_fruits);
+//if (!empty($_POST))
+else
+{
+	var_dump($_POST);
 
-		echo '<table class="table">';
- 			echo '<thead>';
-    				echo '<tr>';
-      					echo '<th>Nom du produit</th>';
-      					echo '<th>Quantité</th>';
-					echo '<th>Unité</th>';
-					echo '<th>Fait</th>';
-					echo '<th>Supprimer</th>';
-    				echo '</tr>';
-  			echo '</thead>';
-  			echo '<tbody>';
-				foreach  ($les_produits as $row) {
-				$checked = ($row['coche']) ? 'checked' : "";
-				echo '<tr class="'.$checked.'">';
-      					echo '<td>'.$row['nom'].'</td>';
-      					echo '<td>'.$row['quantite'].'</td>';
-					echo '<td>'.$row['unite'].'</td>';					
-					echo '<td><input type="checkbox" '.$checked.'></td>';
-					echo '<td class="text-center"><a href=index.php?&efface='.$row['id']. '><i class="fa fa-trash" aria-hidden="true"></i></a></td>';					
-					echo '</tr>';
-				}
-  			echo '</tbody>';
-			echo '</table>';
-	}
+$prod=strip_tags($_POST['nom']);
+$quant=strip_tags($_POST['quantite']);
+$unit=strip_tags($_POST['leunite']);
+$requete3 = "INSERT INTO produit (nom,quantite,unite) VALUE (".$prod.",".$quant.",".$unit.")";
+$bdd->query($requete3)
+}
+
 ?>
-	
-			</div>
-			<div class="col-3 align-items-center">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajout">
-  					Ajouter un produit à la liste
-				</button>
-				<a href="./ajout.php"><button type="button" class="btn btn-light" >
-					Ajouter un produit en externe
-				</button></a>
-			</div>
-		</div>
+	</div>
+
 	</main>
-
-
-	<div class="modal fade">
-  		<div class="modal-dialog" role="document">
-    			<div class="modal-content">
-			      <div class="modal-header">
-					<h5 class="modal-title" id="ajout">Modal title</h5>
-			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          	<span aria-hidden="true">&times;</span>
-        				</button>
-      				</div>
-      				<div class="modal-body">
-
-					<h2>Ajouter un produit</h2> 
-					<form action="index.php" method="POST">
-						<fieldset>
-							<legend>Faites vos courses</legend>	
-							<p><label for="nom">Nom :</label>
-							<input type="text" name="nom" id="nom" title="Nom du produit" required minlength=3 />
-							</p>
-							<p><label for="quantite">Quantité :</label>
-							<input type="text" name="quantite" id="quantite"/>
-							</p>
-							<p><label for="unite">Unité :</label>
-							<input list="leunite" name="unite" id="unite"/>
-							</p>
-							<datalist id="leunite">
-								<option value='unité'>
-								<option value='gramme'>
-								<option value='kilogramme'>
-								<option value='centilitre'>
-								<option value='litre'>
-							</datalist>
-						</fieldset>
-
-					</form>
-
-
-
-      				</div>
-
 	<footer class="footer" id="fin">
 	</footer>
 	<script>
