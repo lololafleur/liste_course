@@ -45,11 +45,12 @@ else {
 
 //echo "<h2>Mise à jour en BDD (Update)</h2>";
 if (isset($_GET['ajout']) and isset($_GET['par'])) {
-	$produit_a_modifier = strip_tags(trim($_GET['ajout']));
+	$produit_a_modifier = trim($_GET['ajout']);
 	$nouveau_quant = strip_tags(trim($_GET['par']));
 	$req='select * from produit where id='.$produit_a_modifier.';';
 	$rep=$bdd->query($req);
 	$les_produits = $rep->fetchAll();
+	print_r ($les_produits);
 	$le_id = $les_produits['id'];
 	$la_quantite = $les_produits['quantite'];
 	if ($nouveau_quant = "plus"){
