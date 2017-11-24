@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="css/layout.css" rel="stylesheet" type="text/css" />
 	<link href="css/font-awesome.css" rel="stylesheet" type="text/css" />
 	<script src="js/jquery.min.js" type="text/javascript"></script>
 	<script src="js/popper.js" type="text/javascript"></script>
@@ -11,11 +10,12 @@
 	<script src="js/tooltip.js" type="text/javascript"></script>
 	<script src="js/modal.js" type="text/javascript"></script>
 	<script src="js/popover.js" type="text/javascript"></script>
+	<script src="js/application.js" type="text/javascript"></script>
 	<script src="js/bootstrap.js" type="text/javascript"></script>
 	<script src="js/jquery-ui.min.js" type="text/javascript"></script>
 	<link href="css/tether.css" rel="stylesheet" type="text/css" />
-	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
 	<script src="js/scripts.js" type="text/javascript"></script>
 	<link href="css/layout.css" rel="stylesheet" type="text/css" />
 	
@@ -31,8 +31,9 @@ $ajout = false;
 $par = false;
 $coche = false;
 $efface = false;
+$modif = false;
 
-$actions = array ("ajout","par","coche","efface");
+$actions = array ("ajout","par","coche","efface","modif");
 foreach ($actions as $test){
 	if (isset($_GET[$test])){
 		$$test = $_GET[$test];		
@@ -107,7 +108,18 @@ elseif ($efface){
 			$req="delete from produit where id=".$produit_a_supprimer.";";
 			$rep=$bdd->query($req);
 }
-
+elseif ($modif){
+		// ********************************************
+	//	modification d'un produit
+	// ********************************************
+	
+	$req=("select * from produit where id=".$modif.";");
+	$rep=$bdd->query($req);
+	$ligne=$rep->fetchall();
+		$lenom=$ligne['nom'];
+		$lequantite=$ligne['quantite'];
+		$launite=$ligne['unite'];
+}
 
 
 
@@ -143,7 +155,7 @@ if ($req_fruits = $bdd->query($requete)) {
 				foreach  ($les_produits as $row) {
 				$checked = ($row['coche']) ? 'checked' : "";
 				echo '<tr class="'.$checked.'">';
-      					echo '<td>'.$row['nom'].'</td>';
+      					echo "<td><a href=modif.php?modif=".$row['id'].">".$row['nom']."</a></td>";
       					echo '<td class="text-center"><a href=index.php?ajout='.$row["id"].'&par=plus><i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp&nbsp&nbsp'.$row['quantite'].'&nbsp&nbsp&nbsp<a href=index.php?ajout='.$row["id"].'&par=moins><i class="fa fa-minus-circle" aria-hidden="true"></i></a></td>';
 					echo '<td>'.$row['unite'].'</td>';					
 					echo '<td><a href=index.php?&coche='.$row['id'].'><input type="checkbox" '.$checked.'></a></td>';
@@ -157,7 +169,7 @@ if ($req_fruits = $bdd->query($requete)) {
 	
 			</div>
 			<div class="col-3 align-items-center">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ajout">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
   					Ajouter un produit à la liste
 				</button>
 				<a href="./ajout.php"><button type="button" class="btn btn-light" >
@@ -168,15 +180,15 @@ if ($req_fruits = $bdd->query($requete)) {
 	</main>
 
 
-	<div class="modal fade" id="ajout">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   		<div class="modal-dialog" role="document">
     			<div class="modal-content">
-			      <div class="modal-header">
-					<h5 class="modal-title">Modal title</h5>
-			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			          	<span aria-hidden="true">&times;</span>
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
         				</button>
-      				</div>
+				</div>
       				<div class="modal-body">
 
 					<h2>Ajouter un produit</h2> 
@@ -205,7 +217,10 @@ if ($req_fruits = $bdd->query($requete)) {
 
 
 
-      				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<footer class="footer" id="fin">
 	</footer>

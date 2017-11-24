@@ -49,13 +49,18 @@ if (empty($_POST)){
 						<input class="form-control col-sm-10" type="text" name="quantite" id="quantite"/>
 						</p>
 						<p><label for="unite" class="col-sm-2">Unité :</label>
-						
-						<select id="leunite" name="leunite" class="form-control col-sm-6">
-							<option value='unité'>Unité
-							<option value='gramme'>Gramme
-							<option value='kilogramme'>Kilogramme
-							<option value='centilitre'>Centilitre
-							<option value='litre'>Litre
+<?php
+						$row = $bdd->query("SHOW COLUMNS FROM produit LIKE 'unite';");
+						$ligne= ($row->fetch(PDO::FETCH_ASSOC));
+						preg_match('/enum\(\'(.*)\'\)$/', $ligne['Type'], $matches);
+						$values = explode('\',\'', $matches[1]);	
+
+						echo '<select id="leunite" name="leunite" class="form-control col-sm-6">';
+						foreach ($values as $cle=>$valeur){
+
+							echo "<option value='".$valeur."'>".$valeur;
+						}
+?>
 						</select>
 
 						</p>
@@ -74,15 +79,19 @@ if (empty($_POST)){
 //if (!empty($_POST))
 else
 {
-	var_dump($_POST);
+$req=("select * from produit where nom = '".$_POST['nom']."'");
+if (count($bdd->query($req)>0)){
+	echo '<script>alert("Le produit existe déjà");</script>';
+}
+else{
 
 $prod=strip_tags($_POST['nom']);
-$quant=strip_tags($_POST['quantite']);
+$quant=intval($_POST['quantite']);
 $unit=strip_tags($_POST['leunite']);
 $requete3 = "INSERT INTO produit (nom,quantite,unite) VALUE (".$prod.",".$quant.",".$unit.")";
 $bdd->query($requete3);
 }
-
+}
 ?>
 	</div>
 
