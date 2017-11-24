@@ -27,85 +27,89 @@
 require_once('./connexion.php');
 // echo "<h2> Insertion en BDD (Create)</h2>";
 
-if (isset($_GET['fruit']) and !isset($_GET['par'])) {
-	$nouveau_fruit = $_GET['fruit'];
-	$nouveau_fruit = strip_tags(trim($nouveau_fruit));
-	echo "<br>le nouveau fruit à enregistrer est : $nouveau_fruit <br>";
+$ajout = false;
+$par = false;
+$coche = false;
+$efface = false;
 
-	$requete3 = "INSERT INTO fruits (nom) VALUE ('$nouveau_fruit')";
-	if(!$bdd->query($requete3))
-		print_r($bdd->errorInfo());
-
-	afficher_toutes_les_lignes();
-}
-else {
-//	echo "<br> Pas de nouveau fruit <br>";
-}
-
-
-//echo "<h2>Mise à jour en BDD (Update)</h2>";
-if (isset($_GET['ajout']) and isset($_GET['par'])) {
-	$produit_a_modifier = trim($_GET['ajout']);
-	$nouveau_quant = strip_tags(trim($_GET['par']));
-	$req='select * from produit where id='.$produit_a_modifier.';';
-	$rep=$bdd->query($req);
-	$les_produits = $rep->fetchAll();
-	print_r ($les_produits);
-	$le_id = $les_produits['id'];
-	$la_quantite = $les_produits['quantite'];
-	if ($nouveau_quant = "plus"){
-			$la_quantite = $la_quantite + 1;
-	}
-	else{
-		$la_quantite = $la_quantite - 1;
-	}
+$actions = array ("ajout","par","coche","efface");
+foreach ($actions as $test){
+	if (isset($_GET[$test])){
+		$$test = $_GET[$test];		
 	
-	$requete="update produit set quantite = ".$la_quantite." where id = ".$le_id.";";
-	$rep=$bdd->query($requete);
-	
-//	echo "<br> modifier le fruit : $fruit_a_modifier par $nouveau_fruit<br>";
-
-	$requete4 = "UPDATE fruits SET nom = '$nouveau_fruit' WHERE nom = '$fruit_a_modifier'";
-	if(!$bdd->query($requete4))
-		print_r($bdd->errorInfo());
-
-	afficher_toutes_les_lignes();
-}
-else {
-//	echo "<br> Rien a modifier <br>";
-}
-
-//echo "<h2>Effacer en BDD (Delete)</h2>";
-if (isset($_GET['efface'])) {
-	$fruit_a_effacer = strip_tags(intval(trim($_GET['efface'])));
-	echo "<br> effacer le fruit : $fruit_a_effacer <br>";
-
-	$requete5 = "DELETE FROM produit WHERE id = '$fruit_a_effacer'";
-	if(!$bdd->query($requete5))
-		print_r($bdd->errorInfo());
-
-	afficher_toutes_les_lignes();
-}
-else {
-//	echo "<br> Rien a effacer <br>";
-}
-
-
-function afficher_toutes_les_lignes(){
-	global $bdd;
-	$les_fruits = array();
-
-	$requete = "SELECT * FROM fruits";
-	if ($req_fruits = $bdd->query($requete)) {
-		$les_fruits = $req_fruits->fetchAll();
-//	var_dump($les_fruits);
-
-		foreach  ($les_fruits as $row) {
-			print $row['id_fruit'] . " : ";
-			print $row['nom'] . "<br>";
-		}
 	}
+	elseif (isset($_POST[$test])){
+		$$test = $_POST[$test];
+	
+	}
+} // fin foreach
+
+if ($ajout){
+
+			// ********************************************
+			//	ajout suppression quantite produit
+			// ********************************************
+
+
+			$produit_a_modifier = intval($ajout);	
+			$nouveau_quant = $par;
+			$req='select * from produit where id='.$produit_a_modifier.';';
+			$rep=$bdd->query($req);
+			$les_produits = $rep->fetchAll();
+			foreach ($les_produits as $ligne){
+				$le_id = $ligne['id'];
+				$la_quantite = $ligne['quantite'];
+			}
+			if ($nouveau_quant == "plus"){
+				$la_quantite = ($la_quantite + 1);
+			}
+			else{
+				$la_quantite = ($la_quantite - 1);
+			}
+			$requete="update produit set quantite = ".$la_quantite." where id = ".$le_id.";";
+			$rep=$bdd->query($requete);
 }
+
+elseif ($coche){
+
+			// ********************************************
+			//	gestion case à cocher : fait
+			// ********************************************
+
+
+			$produit_a_modifier = intval($coche);	
+			$req='select * from produit where id='.$produit_a_modifier.';';
+			$rep=$bdd->query($req);
+			$les_produits = $rep->fetchAll();
+			foreach ($les_produits as $ligne){
+				$le_id = $ligne['id'];
+				$le_coche = $ligne['coche'];
+			}
+			if ($le_coche == 0){
+				$le_coche = 1;
+			}
+			else{
+				$le_coche = 0;
+			}
+	
+			$requete="update produit set coche = ".$le_coche." where id = ".$le_id.";";
+			$rep=$bdd->query($requete);
+}
+
+elseif ($efface){
+
+
+			// ********************************************
+			//	suppression d'un produit
+			// ********************************************
+
+			$produit_a_supprimer = intval($efface);
+			$req="delete from produit where id=".$produit_a_supprimer.";";
+			$rep=$bdd->query($req);
+}
+
+
+
 
 ?>
 <body>
@@ -119,7 +123,6 @@ function afficher_toutes_les_lignes(){
 		<div class="row" style="margin-top: 2rem;">
 			<div class="col-8" >
 <?php
-$blanc = "   ";
 $requete = "SELECT * FROM produit";
 
 if ($req_fruits = $bdd->query($requete)) {
@@ -143,7 +146,7 @@ if ($req_fruits = $bdd->query($requete)) {
       					echo '<td>'.$row['nom'].'</td>';
       					echo '<td class="text-center"><a href=index.php?ajout='.$row["id"].'&par=plus><i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp&nbsp&nbsp'.$row['quantite'].'&nbsp&nbsp&nbsp<a href=index.php?ajout='.$row["id"].'&par=moins><i class="fa fa-minus-circle" aria-hidden="true"></i></a></td>';
 					echo '<td>'.$row['unite'].'</td>';					
-					echo '<td><input type="checkbox" '.$checked.'></td>';
+					echo '<td><a href=index.php?&coche='.$row['id'].'><input type="checkbox" '.$checked.'></a></td>';
 					echo '<td class="text-center"><a href=index.php?&efface='.$row['id']. '><i class="fa fa-trash" aria-hidden="true"></i></a></td>';					
 					echo '</tr>';
 				}
@@ -165,11 +168,11 @@ if ($req_fruits = $bdd->query($requete)) {
 	</main>
 
 
-	<div class="modal fade">
+	<div class="modal fade" id="ajout">
   		<div class="modal-dialog" role="document">
     			<div class="modal-content">
 			      <div class="modal-header">
-					<h5 class="modal-title" id="ajout">Modal title</h5>
+					<h5 class="modal-title">Modal title</h5>
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          	<span aria-hidden="true">&times;</span>
         				</button>
