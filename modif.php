@@ -51,6 +51,11 @@ if ($modif){
 	$lenom=$ligne[0]['nom'];
 	$lequantite=$ligne[0]['quantite'];
 	$launite=$ligne[0]['unite'];
+
+
+
+
+
 }
 
 if (empty($_POST)){	
@@ -72,7 +77,7 @@ if (empty($_POST)){
 					<fieldset class="form-group">
 						<p><label for="nom" class="col-sm-2">Nom :</label>
 <?php
-						echo '<input type="hidden" name="leidprod" value='.intval($leid).'/>';
+						echo '<input type="hidden" name="leidprod" value='.intval($leid).'>';
 						echo '<input class="form-control col-sm-10" type="text" name="nom" id="nom" title="Nom du produit" value="'.$lenom.'"required minlength=3 />';
 						echo '</p>';
 						echo '<p><label for="quantite" class="col-sm-2">Quantité :</label>';
@@ -97,6 +102,7 @@ if (empty($_POST)){
 					</fieldset>
 					<div class="col-sm-6">
 						<input type="submit" name="envoie" value="Enregistrer">
+						<button type="button" id="b_n_user_close" class="btn btn-danger" onclick="history.back()">fermer</button>
 					</div>
 				</form>
  <?php
@@ -109,8 +115,9 @@ $leid=$_POST['leidprod'];
 $prod=strip_tags($_POST['nom']);
 $quant=strip_tags($_POST['quantite']);
 $unit=strip_tags($_POST['leunite']);
-$requete3 = "update produit set nom = '".$prod."', quantite = ".$quant." , unite = '".$unit."' where id_produit=".$leid.";";
+$requete3 = "update produit set nom ='$prod', quantite ='$quant' , unite = '$unit' where id_produit='$leid'";
 $bdd->query($requete3);
+echo '<script>window.history.back();</script>';
 }
 
 ?>

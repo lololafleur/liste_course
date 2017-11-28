@@ -1,4 +1,135 @@
 
+// ***************************************************
+// chargement d'une page dans un bloc
+// ***************************************************
+
+function charge_bloc(lebloc, lapage) {
+		$(document).ready( function(){
+			switch (lebloc) {
+				
+				case "#tete":
+				lapage = "entete.php";
+				break;
+				
+				case "#fin":
+				lapage="pieddepage.html";
+				break;
+				
+				default:
+				
+				break;
+			};
+			// console.log(lebloc);
+			// console.log(lapage);
+		$(lebloc).load(lapage);
+			
+			
+		});
+	
+	
+}
+
+// ***************************************************
+// Surbrillance de la barre de menu
+// ***************************************************
+
+function trouve_la_page(lapage) {
+	$(document).ready( function(){
+	
+	// **********************************************
+		// ma solution
+	// **********************************************
+	
+	// lesliens = document.getElementsByClassName("nav-link");
+	// for (i=0; i < lesliens.length;i++){
+		// reponse = (lesliens[i]).toString().split("/").pop();
+		// debut=reponse.indexOf(".");
+		// lareponse=reponse.slice(0,debut);
+			
+		// switch (reponse) {
+			
+			// case lapage:
+				// var leid = "#"+lareponse;
+				// $(".nav-link").removeClass("text-white bg-dark");
+				// $(leid).addClass("text-white bg-dark");
+				// break;
+			
+						
+		// };
+	// }
+		
+		$('nav li a').each( 
+		function () {
+			reponse=$(this).attr('href').split('/').pop();
+			if (reponse == lapage) {
+				$(this).addClass ("text-white bg-dark");
+				
+			}
+			
+		});
+		
+		
+
+	});
+	}
+
+
+function menp_table(thetable){
+	// register modal component
+// Vue.component('modal', {
+  // template: '#modal-template'
+// })
+
+// start app
+// new Vue({
+  // el: '#app',
+  // data: {
+    // showModal: false,
+	// selected: lalangue
+  // }
+// })
+
+	// var lalangue = document.getElementsByClassName("langue").selectedIndex;
+	thetable = "#"+thetable;
+		$(thetable).DataTable({
+		language: {
+		url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json'}
+		
+		// language: {
+			// processing:     "Traitement en cours...",
+			// search:         "Rechercher&nbsp;:",
+			// lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+			// info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+			// infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+			// infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+			// infoPostFix:    "",
+			// loadingRecords: "Chargement en cours...",
+			// zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+			// emptyTable:     "Aucune donnée disponible dans le tableau",
+			// paginate: {
+				// first:      "Premier",
+				// previous:   "Pr&eacute;c&eacute;dent",
+				// next:       "Suivant",
+				// last:       "Dernier"
+			// },
+			// aria: {
+				// sortAscending:  ": activer pour trier la colonne par ordre croissant",
+				// sortDescending: ": activer pour trier la colonne par ordre décroissant"
+			// }
+		// }
+		
+
+		
+		
+	
+	
+	
+	
+ });
+	
+}
+
+
 
 /*
 Récupération de la liste des images dans le répertoire
@@ -267,136 +398,6 @@ function calcul_droit(champ)
 	pro = pro.toString();
 
 
-}
-
-// ***************************************************
-// chargement d'une page dans un bloc
-// ***************************************************
-
-function charge_bloc(lebloc, lapage) {
-		$(document).ready( function(){
-			switch (lebloc) {
-				
-				case "#tete":
-				lapage = "entete.php";
-				break;
-				
-				case "#fin":
-				lapage="pieddepage.html";
-				break;
-				
-				default:
-				
-				break;
-			};
-			// console.log(lebloc);
-			// console.log(lapage);
-		$(lebloc).load(lapage);
-			
-			
-		});
-	
-	
-}
-
-// ***************************************************
-// Surbrillance de la barre de menu
-// ***************************************************
-
-function trouve_la_page(lapage) {
-	$(document).ready( function(){
-	
-	// **********************************************
-		// ma solution
-	// **********************************************
-	
-	// lesliens = document.getElementsByClassName("nav-link");
-	// for (i=0; i < lesliens.length;i++){
-		// reponse = (lesliens[i]).toString().split("/").pop();
-		// debut=reponse.indexOf(".");
-		// lareponse=reponse.slice(0,debut);
-			
-		// switch (reponse) {
-			
-			// case lapage:
-				// var leid = "#"+lareponse;
-				// $(".nav-link").removeClass("text-white bg-dark");
-				// $(leid).addClass("text-white bg-dark");
-				// break;
-			
-						
-		// };
-	// }
-		
-		$('nav li a').each( 
-		function () {
-			reponse=$(this).attr('href').split('/').pop();
-			if (reponse == lapage) {
-				$(this).addClass ("text-white bg-dark");
-				
-			}
-			
-		});
-		
-		
-
-	});
-	}
-
-
-function menp_table(thetable){
-	// register modal component
-// Vue.component('modal', {
-  // template: '#modal-template'
-// })
-
-// start app
-// new Vue({
-  // el: '#app',
-  // data: {
-    // showModal: false,
-	// selected: lalangue
-  // }
-// })
-
-	// var lalangue = document.getElementsByClassName("langue").selectedIndex;
-	thetable = "#"+thetable;
-		$(thetable).DataTable({
-		language: {
-		url: '//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json'}
-		
-		// language: {
-			// processing:     "Traitement en cours...",
-			// search:         "Rechercher&nbsp;:",
-			// lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
-			// info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
-			// infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
-			// infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
-			// infoPostFix:    "",
-			// loadingRecords: "Chargement en cours...",
-			// zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-			// emptyTable:     "Aucune donnée disponible dans le tableau",
-			// paginate: {
-				// first:      "Premier",
-				// previous:   "Pr&eacute;c&eacute;dent",
-				// next:       "Suivant",
-				// last:       "Dernier"
-			// },
-			// aria: {
-				// sortAscending:  ": activer pour trier la colonne par ordre croissant",
-				// sortDescending: ": activer pour trier la colonne par ordre décroissant"
-			// }
-		// }
-		
-
-		
-		
-	
-	
-	
-	
- });
-	
 }
 
 

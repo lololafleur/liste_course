@@ -11,6 +11,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
 	<script src="js/scripts.js" type="text/javascript"></script>
+	<script src="js/ajax.js" type="text/javascript"></script>
 	
 <style type="text/css">
 .checked{
@@ -21,6 +22,9 @@
 	background-color: burlywood;
 }
 
+.curseur {
+	
+}
 </style>
 	<title>Liste des courses</title>
 
@@ -34,8 +38,15 @@ $par = false;
 $coche = false;
 $efface = false;
 $modif = false;
+$course = false;
+$range=false;
 
-$actions = array ("ajout","par","coche","efface","modif");
+$requete = "SELECT * FROM produit";
+
+if ($req_fruits = $bdd->query($requete)) {
+	$les_produits = $req_fruits->fetchAll();
+
+$actions = array ("ajout","par","coche","efface","modif","course","range");
 foreach ($actions as $test){
 	if (isset($_GET[$test])){
 		$$test = $_GET[$test];		
@@ -126,7 +137,27 @@ elseif ($modif){
 	
 
 }
-
+elseif ($course){
+	$req=("select * from produit where id_produit=".$course);
+	$rep=$bdd->query($req);
+	$lignes=$rep->fetchall();
+	$leid=$lignes[0]['id_produit'];
+	$lenom=$lignes[0]['nom'];
+	$launite=$lignes[0]['unite'];
+//	echo '<form method="POST" action="index1.php">';
+//	echo '<label for "qte">Veuillez entrer la quantité  :</label>';
+//	echo '<input type="text" name="qte">';
+//	echo '<button type="submit">Mettre dans le caddy</button>';
+//	echo '</form>';	
+//	$laquantite=$_POST['qte'];
+//	if ( $laquantite > 0 ){
+//	$requete=("INSERT INTO courses (id_produit, quantite, unite) VALUES ($leid,$laquantite,$launite)");
+//	}
+//	else{
+//		echo '<script>alert("Il faut entrer une quantite")</script>';
+	//	}
+	header('location: caddy.php');
+}
 
 
 ?>
@@ -145,20 +176,17 @@ elseif ($modif){
 		<div class="row" style="margin-top: 2rem;">
 			<div class="col-8" >
 <?php
-$requete = "SELECT * FROM produit";
-
-if ($req_fruits = $bdd->query($requete)) {
-	$les_produits = $req_fruits->fetchAll();
 	//var_dump($les_fruits);
 
-		echo '<table class="table">';
+		echo '<table class="table" id="table_produit">';
  			echo '<thead>';
-    				echo '<tr>';
-      					echo '<th>Nom du produit</th>';
-      					echo '<th class="text-center">Quantité</th>';
-					echo '<th>Unité</th>';
-					echo '<th>Fait</th>';
-					echo '<th>Supprimer</th>';
+    				echo '<tr class="text-center">';
+      					echo "<th><span class='tri_nom asc trier'>Nom du produit</span></th>";
+      					echo "<th><span class='tri_quantite asc trier'>Quantité</span></th>";
+					echo "<th><span class='tri_unite asc trier'>Unité</span></th>";
+					echo "<th><span class='tri_coche asc trier'>Fait</span></th>";
+					echo "<th>Supprimer</th>";
+					echo "<th>Dans le panier</th>";
     				echo '</tr>';
   			echo '</thead>';
   			echo '<tbody>';
@@ -170,6 +198,7 @@ if ($req_fruits = $bdd->query($requete)) {
 					echo '<td>'.$row['unite'].'</td>';					
 					echo '<td><a href=index.php?&coche='.$row['id_produit'].'><input type="checkbox" '.$checked.'></a></td>';
 					echo '<td class="text-center"><a href=index.php?&efface='.$row['id_produit']. '><i class="fa fa-trash" aria-hidden="true"></i></a></td>';					
+					echo '<td class="text-center"><a href=index.php?&course='.$row['id_produit']. '><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a></td>';					
 					echo '</tr>';
 				}
   			echo '</tbody>';
