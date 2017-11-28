@@ -44,10 +44,10 @@ if ($modif){
 	//	modification d'un produit
 	// ********************************************
 	
-	$req=("select * from produit where id=".$modif);
+	$req=("select * from produit where id_produit=".$modif);
 	$rep=$bdd->query($req);
 	$ligne=$rep->fetchall();
-	$leid=$ligne[0]['id'];
+	$leid=$ligne[0]['id_produit'];
 	$lenom=$ligne[0]['nom'];
 	$lequantite=$ligne[0]['quantite'];
 	$launite=$ligne[0]['unite'];
@@ -109,7 +109,7 @@ $leid=$_POST['leidprod'];
 $prod=strip_tags($_POST['nom']);
 $quant=strip_tags($_POST['quantite']);
 $unit=strip_tags($_POST['leunite']);
-$requete3 = "update produit set nom = '".$prod."', quantite = ".$quant." , unite = '".$unit."' where id=".$leid.";";
+$requete3 = "update produit set nom = '".$prod."', quantite = ".$quant." , unite = '".$unit."' where id_produit=".$leid.";";
 $bdd->query($requete3);
 }
 

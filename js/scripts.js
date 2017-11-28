@@ -1,3 +1,5 @@
+
+
 /*
 Récupération de la liste des images dans le répertoire
 */
@@ -276,7 +278,7 @@ function charge_bloc(lebloc, lapage) {
 			switch (lebloc) {
 				
 				case "#tete":
-				lapage = "entete.html";
+				lapage = "entete.php";
 				break;
 				
 				case "#fin":
@@ -396,3 +398,7 @@ function menp_table(thetable){
  });
 	
 }
+
+
+
+

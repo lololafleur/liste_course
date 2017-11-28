@@ -79,8 +79,10 @@ if (empty($_POST)){
 //if (!empty($_POST))
 else
 {
-$req=("select * from produit where nom = '".$_POST['nom']."'");
-if (count($bdd->query($req)>0)){
+$nom_p = $bdd->quote($_POST['nom'];
+$req=("select count(*) from produit where nom = $nom_p");
+$res=$bdd->query($req);
+if ($res->fetchColumn() > 0) {
 	echo '<script>alert("Le produit existe déjà");</script>';
 }
 else{
@@ -88,7 +90,7 @@ else{
 $prod=strip_tags($_POST['nom']);
 $quant=intval($_POST['quantite']);
 $unit=strip_tags($_POST['leunite']);
-$requete3 = "INSERT INTO produit (nom,quantite,unite) VALUE (".$prod.",".$quant.",".$unit.")";
+$requete3 = "INSERT INTO produit (nom,quantite,unite) VALUE ($prod,$quant,$unit)";
 $bdd->query($requete3);
 }
 }
