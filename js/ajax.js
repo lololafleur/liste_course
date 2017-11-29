@@ -51,15 +51,16 @@ function trier_ajax(){
 			
 			},
 			success: function(data, status, xhr){
+				var lignes = document.getElementById('table_produit').getElementByTagName("tr");
 				for (var i in data){
 					nom_prod = data[i]['nom'];
-					jQuery('.lenom').html(nom_prod);
+					lignes[i].cells[0].html(nom_prod);
 					qte_prod = data[i]['quantite'];
-					jQuery('.laquantite').html(qte_prod);
+					lignes[i].cells[1].html(nom_prod);
 					unite_prod = data[i]['unite'];
-					jQuery('.launite').html(unite_prod);
+					lignes[i].cells[2].html(nom_prod);
 					coche_prod = data[i]['coche'];
-					jQuery('.lecoche').html(coche_prod);
+					lignes[i].cells[3].html(nom_prod);
 
 				}
 			
