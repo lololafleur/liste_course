@@ -19,5 +19,5 @@ if ( $rep=$bdd->query($requete) ){
 	echo($bdd->errorInfo()[2]); // si erreur, on affiche l'erreur
 }
 
+header('Content-Type: application/json');
 echo json_encode($rep->fetchall());
-

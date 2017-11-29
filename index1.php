@@ -193,10 +193,10 @@ elseif ($course){
 				foreach  ($les_produits as $row) {
 				$checked = ($row['coche']) ? 'checked' : "";
 				echo '<tr class="'.$checked.'">';
-      					echo "<td><a href=modif.php?modif=".$row['id_produit'].">".$row['nom']."</a></td>";
-      					echo '<td class="text-center"><a href=index.php?ajout='.$row["id_produit"].'&par=plus><i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp&nbsp&nbsp'.$row['quantite'].'&nbsp&nbsp&nbsp<a href=index.php?ajout='.$row["id_produit"].'&par=moins><i class="fa fa-minus-circle" aria-hidden="true"></i></a></td>';
-					echo '<td>'.$row['unite'].'</td>';					
-					echo '<td><a href=index.php?&coche='.$row['id_produit'].'><input type="checkbox" '.$checked.'></a></td>';
+      					echo "<td class='lenom'><a href=modif.php?modif=".$row['id_produit'].">".$row['nom']."</a></td>";
+      					echo '<td class="laquantite text-center"><a href=index.php?ajout='.$row["id_produit"].'&par=plus><i class="fa fa-plus-circle" aria-hidden="true"></i></a>&nbsp&nbsp&nbsp'.$row['quantite'].'&nbsp&nbsp&nbsp<a href=index.php?ajout='.$row["id_produit"].'&par=moins><i class="fa fa-minus-circle" aria-hidden="true"></i></a></td>';
+					echo '<td class="launite">'.$row['unite'].'</td>';					
+					echo '<td class="lecoche"><a href=index.php?&coche='.$row['id_produit'].'><input type="checkbox" '.$checked.'></a></td>';
 					echo '<td class="text-center"><a href=index.php?&efface='.$row['id_produit']. '><i class="fa fa-trash" aria-hidden="true"></i></a></td>';					
 					echo '<td class="text-center"><a href=index.php?&course='.$row['id_produit']. '><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></a></td>';					
 					echo '</tr>';

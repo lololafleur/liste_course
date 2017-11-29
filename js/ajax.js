@@ -13,6 +13,10 @@ function trier_ajax(){
 		var colonne = jQuery(this).attr('class').split(' ')[0].split('_')[1];
 		var sens = jQuery(this).attr('class').split(' ')[1];
 		var ancien_sens = sens;
+		var nom_prod;
+		var qte_prod;
+		var unite_prod;
+		var coche_prod;
 
 		console.log(colonne);
 		console.log(sens);
@@ -47,7 +51,18 @@ function trier_ajax(){
 			
 			},
 			success: function(data, status, xhr){
+				for (var i in data){
+					nom_prod = data[i]['nom'];
+					jQuery('.lenom').html(nom_prod);
+					qte_prod = data[i]['quantite'];
+					jQuery('.laquantite').html(qte_prod);
+					unite_prod = data[i]['unite'];
+					jQuery('.launite').html(unite_prod);
+					coche_prod = data[i]['coche'];
+					jQuery('.lecoche').html(coche_prod);
 
+				}
+			
 			},
 		});
 	});
